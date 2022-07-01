@@ -25,7 +25,7 @@ module.exports = function (config) {
       suppressAll: true // removes the duplicated traces
     },
     coverageReporter: {
-      dir: require('path').join(__dirname, './coverage/comunity-chat'),
+      dir: require('path').join(__dirname, './coverage/community-chat'),
       subdir: '.',
       reporters: [
         { type: 'html' },

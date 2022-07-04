@@ -1,0 +1,239 @@
+<section class="h-100 gradient-form background-tertiary">
+  <div class="container py-5 h-100">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col-xl-10">
+        <div class="card rounded-3 text-black">
+          <div class="row g-0">
+            <div
+              class="col-xl-6 col-lg-6 col-md-6 col-sm-0 col-xs-0 d-flex align-items-center gradient-custom-2"
+            >
+              <div class="px-3 py-4 p-md-5 mx-md-4">
+                <h2 class="mb-4 fs-32" i18n>BIENVENIDO A COMMUNITY CHAT</h2>
+                <p class="mb-0" i18n>
+                  ¡ Hola ! Bienvenido a Community Chat. Este es un espacio donde
+                  todas las personas tienen su sitio. Podrás disfrutar de
+                  conversaciones interesantes entre todos los miembros de la
+                  comunidad.
+                </p>
+              </div>
+            </div>
+            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-xs-12">
+              <div class="card-body p-md-5 mx-md-4">
+                <div class="text-center">
+                  <i
+                    class="fa-solid fa-comments mb-4 color-primary"
+                    style="font-size: 10rem"
+                  ></i>
+                  <!-- <i class="fa-solid fa-headset mb-4" style="font-size: 10rem;"></i> -->
+                  <h1 class="mt-1 pb-1 letter-spacing">COMMUNITY CHAT</h1>
+                </div>
+
+                <form [formGroup]="signUpForm">
+                  <div class="form-outline mb-4">
+                    <label class="form-label" for="form2Example11" i18n
+                      >Correo electrónico</label
+                    >
+                    <input
+                      type="email"
+                      id="form2Example11"
+                      class="form-control"
+                      formControlName="email"
+                    />
+                  </div>
+                  <div
+                    class="form-outline mb-4"
+                    *ngIf="
+                      signUpForm.controls['email'].errors &&
+                      (signUpForm.controls['email'].dirty ||
+                        signUpForm.controls['email'].touched)
+                    "
+                  >
+                    <p class="mt-1 pb-1 text-danger" i18n>
+                      Introduzca un email válido.
+                    </p>
+                  </div>
+                  <div class="form-outline mb-4" *ngIf="error">
+                    <p
+                      class="mt-1 pb-1 text-danger"
+                      *ngIf="error === 'auth/email-already-in-use'"
+                      i18n
+                    >
+                      El correo electrónico introducido ya existe.
+                    </p>
+                  </div>
+                  <div class="form-outline mb-4">
+                    <label class="form-label" for="form2Example11" i18n
+                      >Nombre</label
+                    >
+                    <input
+                      type="text"
+                      id="form2Example11"
+                      class="form-control"
+                      formControlName="name"
+                    />
+                  </div>
+                  <div
+                    class="form-outline mb-4"
+                    *ngIf="
+                      signUpForm.controls['name'].errors &&
+                      (signUpForm.controls['name'].dirty ||
+                        signUpForm.controls['name'].touched)
+                    "
+                  >
+                    <p class="mt-1 pb-1 text-danger" i18n>
+                      Introduzca un nombre válido.
+                    </p>
+                  </div>
+                  <div class="form-outline mb-4">
+                    <label class="form-label" for="form2Example11" i18n
+                      >Apellidos</label
+                    >
+                    <input
+                      type="text"
+                      id="form2Example11"
+                      class="form-control"
+                      formControlName="surname"
+                    />
+                  </div>
+                  <div
+                    class="form-outline mb-4"
+                    *ngIf="
+                      signUpForm.controls['surname'].errors &&
+                      (signUpForm.controls['surname'].dirty ||
+                        signUpForm.controls['surname'].touched)
+                    "
+                  >
+                    <p class="mt-1 pb-1 text-danger" i18n>
+                      Introduzca apellidos válidos.
+                    </p>
+                  </div>
+                  <div class="form-outline mb-4">
+                    <label class="form-label" for="form2Example11" i18n
+                      >Nick</label
+                    >
+                    <input
+                      type="text"
+                      id="form2Example11"
+                      class="form-control"
+                      formControlName="nick"
+                    />
+                  </div>
+                  <div
+                    class="form-outline mb-4"
+                    *ngIf="
+                      signUpForm.controls['nick'].errors &&
+                      (signUpForm.controls['nick'].dirty ||
+                        signUpForm.controls['nick'].touched)
+                    "
+                  >
+                    <p class="mt-1 pb-1 text-danger" i18n>
+                      Introduzca un nick válido.
+                    </p>
+                  </div>
+                  <div class="form-outline mb-4" *ngIf="error">
+                    <p
+                      class="mt-1 pb-1 text-danger"
+                      *ngIf="error === 'user/nick-already-exists'"
+                      i18n
+                    >
+                      El nick introducido ya existe.
+                    </p>
+                  </div>
+                  <div class="form-outline mb-4">
+                    <label class="form-label" for="form2Example11" i18n
+                      >Fecha de Nacimiento</label
+                    >
+                    <input
+                      type="date"
+                      id="form2Example11"
+                      class="form-control"
+                      formControlName="birthdate"
+                    />
+                  </div>
+                  <div
+                    class="form-outline mb-4"
+                    *ngIf="
+                      signUpForm.controls['email'].errors &&
+                      (signUpForm.controls['email'].dirty ||
+                        signUpForm.controls['email'].touched)
+                    "
+                  >
+                    <p class="mt-1 pb-1 text-danger" i18n>
+                      Introduzca una fecha de nacimiento.
+                    </p>
+                  </div>
+
+                  <div class="form-outline mb-4">
+                    <label class="form-label" for="form2Example22" i18n
+                      >Contraseña</label
+                    >
+                    <input
+                      type="{{
+                        signUpForm.controls['showPassword'].value
+                          ? 'text'
+                          : 'password'
+                      }}"
+                      id="form2Example22"
+                      class="form-control"
+                      formControlName="password"
+                    />
+                    <mat-slide-toggle
+                      formControlName="showPassword"
+                      class="mt-2"
+                      color="primary"
+                      i18n
+                      >Mostrar contraseña</mat-slide-toggle
+                    >
+                  </div>
+                  <div
+                    class="form-outline mb-4"
+                    *ngIf="
+                      signUpForm.controls['password'].errors &&
+                      (signUpForm.controls['password'].dirty ||
+                        signUpForm.controls['password'].touched)
+                    "
+                  >
+                    <p class="mt-1 pb-1 text-danger" i18n>
+                      Introduzca una contraseña válida. Tiene que contener al menos ocho carácteres, al menos una letra mayúscula y otra minúscula 
+                    </p>
+                  </div>
+                  
+
+                  <div class="text-center pt-1 mb-4">
+                    <button
+                      class="btn button-primary fa-lg background-primary w-100"
+                      type="button"
+                      (click)="signUp()"
+                      [disabled]="!signUpForm.valid"
+                      i18n
+                    >
+                      Registro
+                    </button>
+                  </div>
+
+                  <div
+                    class="d-flex align-items-center justify-content-center pb-4"
+                  >
+                    <p class="mb-0 me-2" i18n>¿Ya tienes una cuenta?</p>
+                  </div>
+                  <div
+                    class="d-flex align-items-center justify-content-center pb-4"
+                  >
+                    <button
+                      type="button"
+                      class="btn button-primary-outline w-100"
+                      (click)="goToLogin()"
+                      i18n
+                    >
+                      Iniciar Sesión
+                    </button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

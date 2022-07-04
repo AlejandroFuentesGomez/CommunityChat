@@ -46,6 +46,7 @@ import { provideFirestore,getFirestore } from '@angular/fire/firestore';
 import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
 import { AngularFireStorageModule } from '@angular/fire/compat/storage';
 import { AngularFireAuthModule } from '@angular/fire/compat/auth';
+import { SignUpComponent } from './pages/sign-up/sign-up.component';
 const materialModules = [
   CdkTreeModule,
   MatIconModule,
@@ -84,7 +85,8 @@ const materialModules = [
 ];
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    SignUpComponent
   ],
   imports: [
     BrowserModule,

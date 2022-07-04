@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { UserService } from 'src/app/services/user.service';
 import { User } from 'src/app/models/user.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -19,7 +20,8 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private angularFireAuth: AngularFireAuth,
-    private userService: UserService
+    private userService: UserService,
+    private router: Router,
   ) {}
 
   ngOnInit(): void {}
@@ -38,5 +40,8 @@ export class LoginComponent implements OnInit {
           this.error = error.code;
         });
     }
+  }
+  goToRegistro(){
+    this.router.navigate(['sign-up'])
   }
 }

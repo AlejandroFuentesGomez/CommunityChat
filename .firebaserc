@@ -1,0 +1,14 @@
+{
+  "projects": {
+    "default": "community-chat-6a84a"
+  },
+  "targets": {
+    "community-chat-6a84a": {
+      "hosting": {
+        "CommunityChat": [
+          "community-chat-6a84a"
+        ]
+      }
+    }
+  }
+}

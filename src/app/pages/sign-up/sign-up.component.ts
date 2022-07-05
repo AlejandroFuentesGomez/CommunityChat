@@ -82,8 +82,8 @@ export class SignUpComponent implements OnInit, OnDestroy {
                     this.userService
                       .createUser(newUser)
                       .then((response: any) => {
-                        console.log(response);
                         this.updateUser(newUser);
+                        this.router.navigate(['home'])
                       });
                   });
               })

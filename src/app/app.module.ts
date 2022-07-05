@@ -49,7 +49,8 @@ import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 import { SignUpComponent } from './pages/sign-up/sign-up.component';
 import {StoreModule} from '@ngrx/store'
 import { rootReducer } from './store/reducers/rootReducer';
-import {StoreDevtoolsModule} from '@ngrx/store-devtools'
+import {StoreDevtoolsModule} from '@ngrx/store-devtools';
+import { HomeComponent } from './pages/home/home.component'
 
 const materialModules = [
   CdkTreeModule,
@@ -90,7 +91,8 @@ const materialModules = [
 @NgModule({
   declarations: [
     AppComponent,
-    SignUpComponent
+    SignUpComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,

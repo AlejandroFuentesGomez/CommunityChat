@@ -4,7 +4,10 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Observable, Subscription } from 'rxjs';
 import { objectToJson, User } from 'src/app/models/user.model';
+import { StoreService } from 'src/app/services/store.service';
 import { UserService } from 'src/app/services/user.service';
+import { ACTION_CHANGE_USER } from 'src/app/store/actions/appActions';
+import { first } from 'rxjs/operators';
 
 @Component({
   selector: 'app-sign-up',
@@ -14,26 +17,37 @@ import { UserService } from 'src/app/services/user.service';
 export class SignUpComponent implements OnInit, OnDestroy {
   error: string = '';
   userSubscription: Subscription;
+  angularSubscription: Subscription;
   signUpForm = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.email]),
-    name: new FormControl('', [Validators.required, Validators.pattern('[aA-zZ]{2,50}')]),
-    surname: new FormControl('', [Validators.required, Validators.pattern('[aA-zZ]{2,50}')]),
+    name: new FormControl('', [
+      Validators.required,
+      Validators.pattern('[aA-zZ]{2,50}'),
+    ]),
+    surname: new FormControl('', [
+      Validators.required,
+      Validators.pattern('[aA-zZ]{2,50}'),
+    ]),
     nick: new FormControl('', [Validators.required, Validators.minLength(5)]),
     birthdate: new FormControl('', [Validators.required]),
-    password: new FormControl('', [Validators.required, Validators.pattern('^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$')]),
+    password: new FormControl('', [Validators.required]),
     showPassword: new FormControl(false, [Validators.required]),
   });
 
   constructor(
     private router: Router,
     private userService: UserService,
-    private angularFireAuth: AngularFireAuth
+    private angularFireAuth: AngularFireAuth,
+    private storeService: StoreService
   ) {}
-
   ngOnInit(): void {}
+
   ngOnDestroy(): void {
-    if(this.userSubscription){
+    if (this.userSubscription) {
       this.userSubscription.unsubscribe();
+    }
+    if (this.angularSubscription) {
+      this.angularSubscription.unsubscribe();
     }
   }
   signUp() {
@@ -47,26 +61,49 @@ export class SignUpComponent implements OnInit, OnDestroy {
       const birthdate = this.signUpForm.controls['birthdate'].value;
       const password = this.signUpForm.controls['password'].value;
       this.userSubscription = this.userService
-      .getUserByNick(nick)
-      .subscribe((response: any) => {
-      if(response.length===0){
-      this.angularFireAuth.createUserWithEmailAndPassword(email, password).then((responseSignUp: any)=>{
-            const newUser = new User(email, nick, name, surname, birthdate);
-            this.userService.createUser(newUser).then((response:any)=>{
-              console.log(response)
-            })
-          }).catch(error=>{
-            this.error = error.code;
-          });
-        }
-        else{
-          this.error = 'user/nick-already-exists'
-        }
-      })
+        .getUserByNick(nick)
+        .subscribe((response: any) => {
+          if (response.length === 0) {
+            this.angularFireAuth
+              .createUserWithEmailAndPassword(email, password)
+              .then((responseSignUp: any) => {
+                this.angularSubscription =
+                  this.angularFireAuth.authState.subscribe(async (data) => {
+                    const token = await data!.getIdToken();
+                    const newUser = new User(
+                      email,
+                      nick,
+                      name,
+                      surname,
+                      birthdate,
+                      '',
+                      token
+                    );
+                    this.userService
+                      .createUser(newUser)
+                      .then((response: any) => {
+                        console.log(response);
+                        this.updateUser(newUser);
+                      });
+                  });
+              })
+              .catch((error) => {
+                this.error = error.code;
+              });
+          } else {
+            this.error = 'user/nick-already-exists';
+          }
+        });
     }
   }
   goToLogin() {
     this.router.navigate(['login']);
   }
-
+  updateUser(user: User) {
+    const obj = {
+      type: ACTION_CHANGE_USER,
+      payload: user,
+    };
+    this.storeService.updateState(obj);
+  }
 }

@@ -47,6 +47,10 @@ import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
 import { AngularFireStorageModule } from '@angular/fire/compat/storage';
 import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 import { SignUpComponent } from './pages/sign-up/sign-up.component';
+import {StoreModule} from '@ngrx/store'
+import { rootReducer } from './store/reducers/rootReducer';
+import {StoreDevtoolsModule} from '@ngrx/store-devtools'
+
 const materialModules = [
   CdkTreeModule,
   MatIconModule,
@@ -94,6 +98,10 @@ const materialModules = [
     BrowserAnimationsModule,
     FormsModule,
     ReactiveFormsModule,
+    StoreModule.forRoot(rootReducer),
+    StoreDevtoolsModule.instrument({
+      maxAge:5,
+    }),
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
     AngularFireAuthModule,

@@ -42,6 +42,8 @@ export class UserService {
         surname: item.surname,
         birthdate:item.birthdate,
         nick: item.nick,
+        photo:item.photo, 
+        token: item.token
       }
     ));
   }

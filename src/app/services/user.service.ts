@@ -23,6 +23,13 @@ export class UserService {
       .valueChanges()
       .pipe(map(this.treatData));
   }
+    
+  public getUserByToken(token:string): Observable<User[]> {
+    return this.firestore
+      .collection('users', ref=>ref.where('token','==',token))
+      .valueChanges()
+      .pipe(map(this.treatData));
+  }
   public getUserByNick(nick:string): Observable<User[]> {
     return this.firestore
       .collection('users', ref=>ref.where('nick','==',nick))
@@ -32,6 +39,12 @@ export class UserService {
   public createUser(user:User){
     const userObject = objectToJson(user);
     return this.firestore.collection('users').add({...userObject})
+  }
+  public updateDoc(email: string, field: string ,value: string) {
+    return this.firestore.collection('users', ref => ref.where('email', '==', email)).snapshotChanges().subscribe((res:any)=>{
+      let id = res[0].payload.doc.id;
+      this.firestore.collection('users').doc(id).update({field: value});
+    });
   }
 
   private treatData(data: any[]): User[] {

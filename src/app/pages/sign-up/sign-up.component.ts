@@ -8,6 +8,7 @@ import { StoreService } from 'src/app/services/store.service';
 import { UserService } from 'src/app/services/user.service';
 import { ACTION_CHANGE_USER } from 'src/app/store/actions/appActions';
 import { first } from 'rxjs/operators';
+import { StorageService } from 'src/app/services/storage.service';
 
 @Component({
   selector: 'app-sign-up',
@@ -38,7 +39,8 @@ export class SignUpComponent implements OnInit, OnDestroy {
     private router: Router,
     private userService: UserService,
     private angularFireAuth: AngularFireAuth,
-    private storeService: StoreService
+    private storeService: StoreService,
+    private storageService: StorageService,
   ) {}
   ngOnInit(): void {}
 
@@ -70,6 +72,7 @@ export class SignUpComponent implements OnInit, OnDestroy {
                 this.angularSubscription =
                   this.angularFireAuth.authState.subscribe(async (data) => {
                     const token = await data!.getIdToken();
+                    this.storageService.setToken(token)
                     const newUser = new User(
                       email,
                       nick,

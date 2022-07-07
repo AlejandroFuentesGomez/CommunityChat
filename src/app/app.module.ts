@@ -51,6 +51,7 @@ import {StoreModule} from '@ngrx/store'
 import { rootReducer } from './store/reducers/rootReducer';
 import {StoreDevtoolsModule} from '@ngrx/store-devtools';
 import { HomeComponent } from './pages/home/home.component'
+import { StorageService } from './services/storage.service';
 
 const materialModules = [
   CdkTreeModule,
@@ -62,7 +63,6 @@ const materialModules = [
   MatChipsModule,
   MatDividerModule,
   MatExpansionModule,
-  MatIconModule,
   MatInputModule,
   MatListModule,
   MatMenuModule,
@@ -86,7 +86,9 @@ const materialModules = [
   MatGridListModule,
   MatRadioModule,
   MatDatepickerModule,
-  MatTooltipModule
+  MatTooltipModule,
+  
+  
 ];
 @NgModule({
   declarations: [
@@ -110,7 +112,7 @@ const materialModules = [
     AngularFireStorageModule,
     ...materialModules,
   ],
-  providers: [],
+  providers: [StorageService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

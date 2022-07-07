@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
 import { ACTION_CHANGE_USER } from 'src/app/store/actions/appActions';
 import { StoreService } from 'src/app/services/store.service';
 import { Subscription } from 'rxjs';
+import { StorageService } from 'src/app/services/storage.service';
 
 @Component({
   selector: 'app-login',
@@ -21,18 +22,22 @@ export class LoginComponent implements OnInit, OnDestroy {
     showPassword: new FormControl(false, [Validators.required]),
   });
   loginSubscription: Subscription;
+  angularSubscription: Subscription;
 
   constructor(
     private angularFireAuth: AngularFireAuth,
     private userService: UserService,
     private router: Router,
-    private storeService: StoreService
+    private storeService: StoreService,
+    private storageService: StorageService
   ) {}
-  ngOnInit(): void {
-    }
+  ngOnInit(): void {}
   ngOnDestroy(): void {
     if (this.loginSubscription) {
-    this.loginSubscription.unsubscribe();
+      this.loginSubscription.unsubscribe();
+    }
+    if (this.angularSubscription) {
+      this.angularSubscription.unsubscribe();
     }
   }
 
@@ -46,11 +51,20 @@ export class LoginComponent implements OnInit, OnDestroy {
         .signInWithEmailAndPassword(email, password)
         .then((response: any) => {
           // * Si obtenemos una respuesta correcta , seguimos con el login
+          this.angularSubscription = this.angularFireAuth.authState.subscribe(
+            async (data) => {
+              const token = await data!.getIdToken();
+              this.storageService.setToken(token);
+              console.log(token)
+              this.userService.updateDoc(email, 'token', token)
+            }
+          );
+
           this.loginSubscription = this.userService
             .getUserByEmail(email)
             .subscribe((userObj: any) => {
               const user = jsonToUser(userObj[0]);
-              this.updateUser(user);
+              this.storeService.updateUserState(user);
               this.router.navigate(['home']);
             });
         })
@@ -63,11 +77,5 @@ export class LoginComponent implements OnInit, OnDestroy {
   goToRegistro() {
     this.router.navigate(['sign-up']);
   }
-  updateUser(user: User) {
-    const obj = {
-      type: ACTION_CHANGE_USER,
-      payload: user,
-    };
-    this.storeService.updateState(obj);
-  }
+
 }

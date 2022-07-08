@@ -5,6 +5,7 @@ h1,h2,h3,h4,h5,h6{
 *{
     font-family: 'Karla', sans-serif !important;
 }
+
 .material-icons{
     font-family: 'Material Icons' !important;
 }
@@ -28,19 +29,32 @@ background-color: #09C0FA
 .background-tertiary{
     background-color: #171C26;
 }
+.background-white{
+    background-color: #FFFF;
+}
 .button-primary{
     background-color: #FFB647;
     color:white;
 }
 .button-primary-outline{
-    background-color: white;
-    color:#FFB647;
-    border-radius: 2px;
-    border: 0.1rem solid #FFB647;
+    background-color: white !important;
+    color:#FFB647 !important;
+    border-radius: 0.25rem !important;
+    border: 0.1rem solid #FFB647 !important;
 }
 .fs-38{
     font-size: 38px !important;
 }
 .fs-32{
     font-size: 32px !important;
+}
+.ng-star-inserted{
+    width: 100%;
+    height: 100%;
+}
+.h-95{
+height: 95% !important;
+}
+.h-5{
+    height: 5% !important;
 }

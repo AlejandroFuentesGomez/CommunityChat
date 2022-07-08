@@ -1,0 +1,57 @@
+<section class="h-100 gradient-form background-primary container-fluid">
+  <div class="p-4 h-100 rounded">
+    <div
+      class="row rounded d-flex h-95 px-3 justify-content-center w-100 background-white overflow-auto"
+    >
+      <mat-list>
+        <div
+          *ngFor="let message of messages"
+          class="row h-auto my-3"
+          [ngClass]="{
+            'justify-content-end': user.nick === message.nick,
+            'justify-content-start': user.nick !== message.nick
+          }"
+        >
+          <mat-list-item
+            class="rounded w-50 text-wrap py-3 h-auto"
+            [ngClass]="{
+              'background-primary': user.nick === message.nick,
+              'background-secondary': user.nick !== message.nick
+            }"
+          >
+            <b>{{ message.nick }}:&nbsp; </b> {{ message.message }}
+          </mat-list-item>
+        </div>
+      </mat-list>
+    </div>
+    <div class="row d-flex h-5 mt-3 justify-content-between w-100">
+      <div class="col-xl-11 col-lg-11 col-md-11 col-sm-11 col-sm-11 p-0">
+        <div class="row d-flex h-100">
+          <form [formGroup]="chatForm">
+            <div class="form-outline mb-4">
+              <input
+                type="text"
+                id="form2Example11"
+                class="form-control"
+                formControlName="message"
+              />
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="col-xl-1 col-lg-1 col-md-1 col-sm-1 col-sm-1 p-0">
+        <div class="row d-flex justify-content-center w-100">
+          <button
+            mat-stroked-button
+            color="secondary"
+            [disabled]="!chatForm.valid"
+            class="w-75 rounded button-primary-outline"
+            (click)="sendMessage()"
+          >
+            <mat-icon>send</mat-icon>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

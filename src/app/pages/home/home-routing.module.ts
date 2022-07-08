@@ -1,12 +1,21 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AuthGuardGuard } from 'src/app/guards/auth-guard.guard';
 import { HomeComponent } from './home.component';
 
 const routes: Routes = [{
   path:'', 
   component: HomeComponent,
-  canLoad: [AuthGuardGuard]
+  children:[
+    {
+      path:'chat', 
+      loadChildren: () => import('./chat/chat.module').then((m) => m.ChatModule), 
+    },
+    {
+      path:'',
+      redirectTo:'chat',
+      pathMatch: 'full',
+        }
+  ]
 }];
 
 @NgModule({

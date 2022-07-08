@@ -27,4 +27,11 @@ export class StoreService {
     };
     this.updateState(obj);
   }
+  clearUserState(){
+    const obj = {
+      type: ACTION_CHANGE_USER,
+      payload: new User('','','','', new Date(),'',''),
+    };
+    this.updateState(obj);
+  }
 }

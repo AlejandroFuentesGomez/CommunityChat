@@ -56,6 +56,15 @@ export class UserService {
         this.firestore.collection('users').doc(id).update({ field: value });
       });
   }
+  public updateToken(email: string, value: string) {
+    return this.firestore
+      .collection('users', (ref) => ref.where('email', '==', email))
+      .snapshotChanges()
+      .subscribe((res: any) => {
+        let id = res[0].payload.doc.id;
+        this.firestore.collection('users').doc(id).update({'token': value });
+      });
+  }
   public logout() {
     this.storageService.deleteAll();
     this.storeService.clearUserState();

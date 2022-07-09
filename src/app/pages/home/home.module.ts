@@ -13,11 +13,13 @@ import { ChatComponent } from './chat/chat.component';
 import { MatFormField, MatFormFieldModule } from '@angular/material/form-field';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatListModule } from '@angular/material/list';
+import { ProfileComponent } from './profile/profile.component';
 
 
 @NgModule({
   declarations: [
-    ChatComponent
+    ChatComponent,
+    ProfileComponent
   ],
   imports: [
     CommonModule,

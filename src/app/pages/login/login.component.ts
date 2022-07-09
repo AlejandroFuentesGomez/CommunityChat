@@ -56,17 +56,17 @@ export class LoginComponent implements OnInit, OnDestroy {
               const token = await data!.getIdToken();
               this.storageService.setToken(token);
               console.log(token)
-              this.userService.updateDoc(email, 'token', token)
+              this.userService.updateToken(email, token)
+              this.loginSubscription = this.userService
+                .getUserByEmail(email)
+                .subscribe((userObj: any) => {
+                  const user = jsonToUser(userObj[0]);
+                  this.storeService.updateUserState(user);
+                  this.router.navigate(['home']);
+                });
             }
           );
 
-          this.loginSubscription = this.userService
-            .getUserByEmail(email)
-            .subscribe((userObj: any) => {
-              const user = jsonToUser(userObj[0]);
-              this.storeService.updateUserState(user);
-              this.router.navigate(['home']);
-            });
         })
         .catch((error) => {
           // * CONTROL ERROR RESPONSE IN ORDER TO GIVE FEEDBACK TO THE USER

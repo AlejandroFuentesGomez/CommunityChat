@@ -7,18 +7,18 @@ const routes: Routes = [
   {
     path: 'login',
     loadChildren: () => import('./pages/login/login.module').then((m) => m.LoginModule),
-    canLoad:[IntroGuardGuard]
+    /* canLoad:[IntroGuardGuard] */
 
   },
   {
     path: 'sign-up',
     loadChildren: () => import('./pages/sign-up/sign-up.module').then((m) => m.SignUpModule),
-    canLoad:[IntroGuardGuard]
-  },
+/*     canLoad:[IntroGuardGuard]
+ */  },
   {
     path: 'home',
     loadChildren: () => import('./pages/home/home.module').then((m) => m.HomeModule),
-    canLoad:[AuthGuardGuard]
+    /* canLoad:[AuthGuardGuard] */
   },
   {
     path: '',

@@ -28,7 +28,6 @@ export class MessageService {
       let id = res[0].payload.doc.id;
       this.firestore.collection('messages').doc(id).update({field: value});
     });
-  
   }
   private treatData(data: any[]): Message[] {
     return data.map((item: any) => (

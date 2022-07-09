@@ -1,0 +1,40 @@
+<section class="h-100 gradient-form background-primary container-fluid">
+  <div class="p-4 h-100 rounded">
+    <div
+      class="row rounded d-flex h-auto px-3 justify-content-center w-100 background-white overflow-auto"
+    >
+    <img src="{{user.photo}}" alt="">
+</div>
+    <div
+      class="row rounded d-flex px-3 h-auto justify-content-center w-100 background-white overflow-auto"
+    >
+      <mat-list>
+        <div class="row justify-content-center h-auto my-3">
+          <mat-list-item class="rounded w-50 text-wrap py-3 h-auto">
+            E-mail: {{ user.email }}
+          </mat-list-item>
+        </div>
+        <div class="row justify-content-center h-auto my-3">
+          <mat-list-item class="rounded w-50 text-wrap py-3 h-auto">
+            Nick: {{ user.nick }}
+          </mat-list-item>
+        </div>
+        <div class="row justify-content-center h-auto my-3">
+          <mat-list-item class="rounded w-50 text-wrap py-3 h-auto">
+            Nombre: {{ user.name }}
+          </mat-list-item>
+        </div>
+        <div class="row justify-content-center h-auto my-3">
+          <mat-list-item class="rounded w-50 text-wrap py-3 h-auto">
+            Apellidos: {{ user.surname }}
+          </mat-list-item>
+        </div>
+        <div class="row justify-content-center h-auto my-3">
+          <mat-list-item class="rounded w-50 text-wrap py-3 h-auto">
+            Fecha de cumpleaños: {{ user.birthdate | date: 'dd/MM/YYYY' }}
+          </mat-list-item>
+        </div>
+      </mat-list>
+    </div>
+  </div>
+</section>

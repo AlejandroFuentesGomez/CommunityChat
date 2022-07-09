@@ -1,6 +1,7 @@
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { MatSidenav } from '@angular/material/sidenav';
+import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { User } from 'src/app/models/user.model';
 import { StoreService } from 'src/app/services/store.service';
@@ -20,7 +21,8 @@ export class HomeComponent implements OnInit, OnDestroy {
   constructor(
     private observer: BreakpointObserver,
     private storeService: StoreService,
-    private userService: UserService
+    private userService: UserService,
+    private router: Router,
   ) {}
 
   ngOnInit(): void {
@@ -39,6 +41,9 @@ export class HomeComponent implements OnInit, OnDestroy {
         this.sidenav.open();
       }
     });
+  }
+  navigate(path:string){
+    this.router.navigate([path])
   }
   loadUserData() {
     this.userSubscription = this.storeService

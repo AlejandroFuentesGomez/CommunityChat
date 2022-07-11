@@ -3,38 +3,117 @@
     <div
       class="row rounded d-flex h-auto px-3 justify-content-center w-100 background-white overflow-auto"
     >
-    <img src="{{user.photo}}" alt="">
-</div>
+    <img class="rounded profile-photo my-3" src="{{user.photo ? user.photo : 'https://images.pexels.com/photos/1662159/pexels-photo-1662159.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'}}" alt="">
+    <h2 class="text-center text-dark my-2">{{user.name + ' '+user.surname }}</h2>
+    <h4 class="text-center text-dark my-2">{{user.nick}}</h4>
+  </div>
     <div
       class="row rounded d-flex px-3 h-auto justify-content-center w-100 background-white overflow-auto"
     >
-      <mat-list>
+      <mat-list *ngIf="!enableForm">
         <div class="row justify-content-center h-auto my-3">
-          <mat-list-item class="rounded w-50 text-wrap py-3 h-auto">
+          <mat-list-item class="rounded w-50 text-wrap py-3 h-auto background-primary">
             E-mail: {{ user.email }}
           </mat-list-item>
         </div>
         <div class="row justify-content-center h-auto my-3">
-          <mat-list-item class="rounded w-50 text-wrap py-3 h-auto">
+          <mat-list-item class="rounded w-50 text-wrap py-3 h-auto background-primary">
             Nick: {{ user.nick }}
           </mat-list-item>
         </div>
         <div class="row justify-content-center h-auto my-3">
-          <mat-list-item class="rounded w-50 text-wrap py-3 h-auto">
+          <mat-list-item class="rounded w-50 text-wrap py-3 h-auto background-primary">
             Nombre: {{ user.name }}
           </mat-list-item>
         </div>
         <div class="row justify-content-center h-auto my-3">
-          <mat-list-item class="rounded w-50 text-wrap py-3 h-auto">
+          <mat-list-item class="rounded w-50 text-wrap py-3 h-auto background-primary">
             Apellidos: {{ user.surname }}
           </mat-list-item>
         </div>
         <div class="row justify-content-center h-auto my-3">
-          <mat-list-item class="rounded w-50 text-wrap py-3 h-auto">
+          <mat-list-item class="rounded w-50 text-wrap py-3 h-auto background-primary">
             Fecha de cumpleaños: {{ user.birthdate | date: 'dd/MM/YYYY' }}
           </mat-list-item>
         </div>
-      </mat-list>
+        <div class="row justify-content-center h-auto my-3">
+        <mat-list-item class="rounded w-50 py-4 h-auto">
+          <button type="button" class="btn button-primary-outline w-100" i18n>Editar datos</button>
+        </mat-list-item>      
+      </div>
+      <div class="row justify-content-center h-auto my-3">
+      <mat-list-item class="rounded w-75 py-4 h-auto" >
+        <button type="button" class="btn button-primary-outline w-100" i18n>Editar datos</button>
+      </mat-list-item> 
+    </div>    
+    </mat-list>
+    
+    <mat-list *ngIf="enableForm" [formGroup]="editProfileForm" >
+      <div class="row justify-content-center h-auto my-3">
+        <mat-list-item class="rounded w-75 text-wrap py-3 h-auto background-primary">
+          E-mail: {{ user.email }}
+        </mat-list-item>
+      </div>
+      <div class="row justify-content-center h-auto my-3">
+        <mat-list-item class="rounded w-75 text-wrap py-3 h-auto background-primary">
+          <label class="form-label" for="form2Example11" i18n
+          >Nick</label
+        >
+        <input
+          type="text"
+          id="form2Example11"
+          class="form-control mx-2"
+          formControlName="nick"
+        />                </mat-list-item>
+      </div>
+      <div class="row justify-content-center h-auto my-3">
+        <mat-list-item class="rounded w-75 text-wrap py-3 h-auto background-primary">
+          <label class="form-label" for="form2Example11" i18n
+          >Nombre</label
+        >
+        <input
+          type="text"
+          id="form2Example11"
+          class="form-control mx-2"
+          formControlName="name"
+
+          />                </mat-list-item>
+      </div>
+      <div class="row justify-content-center h-auto my-3">
+        <mat-list-item class="rounded w-75 text-wrap py-3 h-auto background-primary">
+          <label class="form-label" for="form2Example11" i18n
+          >Apellidos</label
+        >
+        <input
+          type="text"
+          id="form2Example11"
+          class="form-control mx-2"
+          formControlName="surname"
+        
+        />                </mat-list-item>
+      </div>
+      <div class="row justify-content-center h-auto my-3">
+        <mat-list-item class="rounded w-75 text-wrap py-3 h-auto background-primary">
+          <label class="form-label" for="form2Example11" i18n
+          >Fecha de nacimiento</label
+        >
+        <input
+          type="date"
+          formControlName="birthdate"
+          id="form2Example11"
+          class="form-control mx-2"
+        />                </mat-list-item>
+      </div>
+      <div class="row justify-content-center h-auto my-3">
+      <mat-list-item class="rounded w-75 py-4 h-auto" >
+        <button type="button" class="btn button-primary-outline w-100" i18n>Aceptar</button>
+      </mat-list-item>      
+      <mat-list-item class="rounded w-75 py-4 h-auto">
+        <button type="button" class="btn button-danger-outline w-100" i18n>Cancelar</button>
+      </mat-list-item>       
     </div>
+  </mat-list>
+  
+  </div>
   </div>
 </section>

@@ -1,119 +1,245 @@
 <section class="h-100 gradient-form background-primary container-fluid">
-  <div class="p-4 h-100 rounded">
+  <div class="p-4 h-100 rounded background-white">
     <div
-      class="row rounded d-flex h-auto px-3 justify-content-center w-100 background-white overflow-auto"
+      class="row rounded d-flex h-auto px-3 justify-content-center w-100 overflow-auto"
     >
-    <img class="rounded profile-photo my-3" src="{{user.photo ? user.photo : 'https://images.pexels.com/photos/1662159/pexels-photo-1662159.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'}}" alt="">
-    <h2 class="text-center text-dark my-2">{{user.name + ' '+user.surname }}</h2>
-    <h4 class="text-center text-dark my-2">{{user.nick}}</h4>
-  </div>
+      <img
+        class="rounded profile-photo my-3"
+        src="{{
+          user.photo
+            ? user.photo
+            : 'https://images.pexels.com/photos/1662159/pexels-photo-1662159.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'
+        }}"
+        alt="{{ user.name + ' ' + user.surname }}"
+      />
+    </div>
+    <div
+      class="row rounded d-flex h-auto px-3 justify-content-center w-100 overflow-auto"
+    >
+      <mat-list>
+        <div class="row justify-content-center h-auto my-3">
+          <mat-list-item
+            class="rounded w-75 text-wrap py-3 h-auto background-primary"
+          >
+            <input
+              class="form-control"
+              type="file"
+              (change)="changeProfilePhoto($event)"
+            />
+
+            <button (click)="onUpload()" class="btn btn-success" i18n>Aceptar</button>
+          </mat-list-item>
+        </div>
+      </mat-list>
+    </div>
+
+    <h2 class="text-center text-dark my-2">
+      {{ user.name + " " + user.surname }}
+    </h2>
+    <h4 class="text-center text-dark my-2">{{ user.nick }}</h4>
     <div
       class="row rounded d-flex px-3 h-auto justify-content-center w-100 background-white overflow-auto"
     >
       <mat-list *ngIf="!enableForm">
         <div class="row justify-content-center h-auto my-3">
-          <mat-list-item class="rounded w-50 text-wrap py-3 h-auto background-primary">
+          <mat-list-item
+            class="rounded w-75 text-wrap py-3 h-auto background-primary"
+          >
             E-mail: {{ user.email }}
           </mat-list-item>
         </div>
         <div class="row justify-content-center h-auto my-3">
-          <mat-list-item class="rounded w-50 text-wrap py-3 h-auto background-primary">
+          <mat-list-item
+            class="rounded w-75 text-wrap py-3 h-auto background-primary"
+          >
             Nick: {{ user.nick }}
           </mat-list-item>
         </div>
         <div class="row justify-content-center h-auto my-3">
-          <mat-list-item class="rounded w-50 text-wrap py-3 h-auto background-primary">
+          <mat-list-item
+            class="rounded w-75 text-wrap py-3 h-auto background-primary"
+          >
             Nombre: {{ user.name }}
           </mat-list-item>
         </div>
         <div class="row justify-content-center h-auto my-3">
-          <mat-list-item class="rounded w-50 text-wrap py-3 h-auto background-primary">
+          <mat-list-item
+            class="rounded w-75 text-wrap py-3 h-auto background-primary"
+          >
             Apellidos: {{ user.surname }}
           </mat-list-item>
         </div>
         <div class="row justify-content-center h-auto my-3">
-          <mat-list-item class="rounded w-50 text-wrap py-3 h-auto background-primary">
-            Fecha de cumpleaños: {{ user.birthdate | date: 'dd/MM/YYYY' }}
+          <mat-list-item
+            class="rounded w-75 text-wrap py-3 h-auto background-primary"
+          >
+            Fecha de cumpleaños: {{ user.birthdate | date: "dd/MM/YYYY" }}
           </mat-list-item>
         </div>
         <div class="row justify-content-center h-auto my-3">
-        <mat-list-item class="rounded w-50 py-4 h-auto">
-          <button type="button" class="btn button-primary-outline w-100" i18n>Editar datos</button>
-        </mat-list-item>      
-      </div>
-      <div class="row justify-content-center h-auto my-3">
-      <mat-list-item class="rounded w-75 py-4 h-auto" >
-        <button type="button" class="btn button-primary-outline w-100" i18n>Editar datos</button>
-      </mat-list-item> 
-    </div>    
-    </mat-list>
-    
-    <mat-list *ngIf="enableForm" [formGroup]="editProfileForm" >
-      <div class="row justify-content-center h-auto my-3">
-        <mat-list-item class="rounded w-75 text-wrap py-3 h-auto background-primary">
-          E-mail: {{ user.email }}
-        </mat-list-item>
-      </div>
-      <div class="row justify-content-center h-auto my-3">
-        <mat-list-item class="rounded w-75 text-wrap py-3 h-auto background-primary">
-          <label class="form-label" for="form2Example11" i18n
-          >Nick</label
-        >
-        <input
-          type="text"
-          id="form2Example11"
-          class="form-control mx-2"
-          formControlName="nick"
-        />                </mat-list-item>
-      </div>
-      <div class="row justify-content-center h-auto my-3">
-        <mat-list-item class="rounded w-75 text-wrap py-3 h-auto background-primary">
-          <label class="form-label" for="form2Example11" i18n
-          >Nombre</label
-        >
-        <input
-          type="text"
-          id="form2Example11"
-          class="form-control mx-2"
-          formControlName="name"
+          <mat-list-item class="rounded w-75 py-4 h-auto">
+            <button
+              type="button"
+              class="btn button-primary w-100"
+              (click)="enableForm = true"
+              i18n
+            >
+              Editar datos
+            </button>
+          </mat-list-item>
+        </div>
+      </mat-list>
 
-          />                </mat-list-item>
-      </div>
-      <div class="row justify-content-center h-auto my-3">
-        <mat-list-item class="rounded w-75 text-wrap py-3 h-auto background-primary">
-          <label class="form-label" for="form2Example11" i18n
-          >Apellidos</label
+      <mat-list *ngIf="enableForm" [formGroup]="editProfileForm">
+        <div class="row justify-content-center h-auto my-3">
+          <mat-list-item
+            class="rounded w-75 text-wrap py-3 h-auto background-primary"
+          >
+            E-mail: {{ user.email }}
+          </mat-list-item>
+        </div>
+        <div class="row justify-content-center h-auto my-3">
+          <mat-list-item
+            class="rounded w-75 text-wrap py-3 h-auto background-primary"
+          >
+            <label class="form-label" for="form2Example11" i18n>Nick</label>
+            <input
+              type="text"
+              id="form2Example11"
+              class="form-control mx-2"
+              formControlName="nick"
+            />
+          </mat-list-item>
+        </div>
+        <div
+          *ngIf="
+            this.editProfileForm.controls['nick'].errors &&
+            (this.editProfileForm.controls['nick'].dirty ||
+              this.editProfileForm.controls['nick'].touched)
+          "
+          class="row justify-content-center h-auto my-3"
         >
-        <input
-          type="text"
-          id="form2Example11"
-          class="form-control mx-2"
-          formControlName="surname"
-        
-        />                </mat-list-item>
-      </div>
-      <div class="row justify-content-center h-auto my-3">
-        <mat-list-item class="rounded w-75 text-wrap py-3 h-auto background-primary">
-          <label class="form-label" for="form2Example11" i18n
-          >Fecha de nacimiento</label
+          <mat-list-item class="rounded w-75 text-wrap py-1 h-auto">
+            <p class="text-danger" i18n>Introduzca un nick válido</p>
+          </mat-list-item>
+        </div>
+        <div class="row justify-content-center h-auto my-3">
+          <mat-list-item
+            class="rounded w-75 text-wrap py-3 h-auto background-primary"
+          >
+            <label class="form-label" for="form2Example11" i18n>Nombre</label>
+            <input
+              type="text"
+              id="form2Example11"
+              class="form-control mx-2"
+              formControlName="name"
+            />
+          </mat-list-item>
+        </div>
+        <div
+          *ngIf="
+            this.editProfileForm.controls['nick'].errors &&
+            (this.editProfileForm.controls['name'].dirty ||
+              this.editProfileForm.controls['name'].touched)
+          "
+          class="row justify-content-center h-auto my-3"
         >
-        <input
-          type="date"
-          formControlName="birthdate"
-          id="form2Example11"
-          class="form-control mx-2"
-        />                </mat-list-item>
-      </div>
-      <div class="row justify-content-center h-auto my-3">
-      <mat-list-item class="rounded w-75 py-4 h-auto" >
-        <button type="button" class="btn button-primary-outline w-100" i18n>Aceptar</button>
-      </mat-list-item>      
-      <mat-list-item class="rounded w-75 py-4 h-auto">
-        <button type="button" class="btn button-danger-outline w-100" i18n>Cancelar</button>
-      </mat-list-item>       
+          <mat-list-item class="rounded w-75 text-wrap py-1 h-auto">
+            <p class="text-danger" i18n>Introduzca un nombre válido</p>
+          </mat-list-item>
+        </div>
+        <div class="row justify-content-center h-auto my-3">
+          <mat-list-item
+            class="rounded w-75 text-wrap py-3 h-auto background-primary"
+          >
+            <label class="form-label" for="form2Example11" i18n
+              >Apellidos</label
+            >
+            <input
+              type="text"
+              id="form2Example11"
+              class="form-control mx-2"
+              formControlName="surname"
+            />
+          </mat-list-item>
+        </div>
+        <div
+          *ngIf="
+            this.editProfileForm.controls['nick'].errors &&
+            (this.editProfileForm.controls['surname'].dirty ||
+              this.editProfileForm.controls['surname'].touched)
+          "
+          class="row justify-content-center h-auto my-3"
+        >
+          <mat-list-item class="rounded w-75 text-wrap py-1 h-auto">
+            <p class="text-danger" i18n>Introduzca un apellido válido</p>
+          </mat-list-item>
+        </div>
+        <div class="row justify-content-center h-auto my-3">
+          <mat-list-item
+            class="rounded w-75 text-wrap py-3 h-auto background-primary"
+          >
+            <label class="form-label" for="form2Example11" i18n
+              >Fecha de nacimiento</label
+            >
+            <input
+              type="date"
+              formControlName="birthdate"
+              id="form2Example11"
+              class="form-control mx-2"
+            />
+          </mat-list-item>
+        </div>
+        <div
+          *ngIf="
+            this.editProfileForm.controls['nick'].errors &&
+            (this.editProfileForm.controls['birthdate'].dirty ||
+              this.editProfileForm.controls['birthdate'].touched)
+          "
+          class="row justify-content-center h-auto my-3"
+        >
+          <mat-list-item class="rounded w-75 text-wrap py-1 h-auto">
+            <p class="text-danger" i18n>
+              Introduzca una fecha de nacimiento válida
+            </p>
+          </mat-list-item>
+        </div>
+        <div
+          *ngIf="error === 'user/nick-already-exists' "
+          class="row justify-content-center h-auto my-3"
+        >
+          <mat-list-item class="rounded w-75 text-wrap py-1 h-auto">
+            <p class="text-danger" i18n>El nick introducido ya existe.</p>
+          </mat-list-item>
+        </div>
+        <div class="row justify-content-center h-auto my-3">
+          <mat-list-item class="rounded w-75 pt-4 pb-2 h-auto">
+            <button
+              type="button"
+              [disabled]="!editProfileForm.valid"
+              [ngClass]="{
+                ' button-primary-outline': !editProfileForm.valid,
+                ' button-primary': editProfileForm.valid
+              }"
+              class="btn w-100"
+              (click)="submit()"
+              i18n
+            >
+              Aceptar
+            </button>
+          </mat-list-item>
+          <mat-list-item class="rounded w-75 pb-4 pt-2 h-auto">
+            <button
+              type="button"
+              class="btn button-danger w-100"
+              (click)="enableForm = false"
+              i18n
+            >
+              Cancelar
+            </button>
+          </mat-list-item>
+        </div>
+      </mat-list>
     </div>
-  </mat-list>
-  
-  </div>
   </div>
 </section>

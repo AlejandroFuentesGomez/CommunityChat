@@ -47,16 +47,19 @@ export class UserService {
     const userObject = objectToJson(user);
     return this.firestore.collection('users').add({ ...userObject });
   }
-  public updateDoc(email: string, field: string, value: string) {
+  public updateDoc(email: string, updateFields: any) {
+    console.log('UPDATE USER');
+    console.log('updateFields', updateFields)
     return this.firestore
       .collection('users', (ref) => ref.where('email', '==', email))
       .snapshotChanges()
       .subscribe((res: any) => {
         let id = res[0].payload.doc.id;
-        this.firestore.collection('users').doc(id).update({ field: value });
+        this.firestore.collection('users').doc(id).update(updateFields);
       });
   }
   public updateToken(email: string, value: string) {
+    console.log('UPDATE TOKEN')
     return this.firestore
       .collection('users', (ref) => ref.where('email', '==', email))
       .snapshotChanges()

@@ -37,7 +37,8 @@ export class ProfileComponent implements OnInit, OnDestroy {
     this.userSubscription = this.storeService
       .getState('userState')
       .subscribe((state) => {
-        this.userBirthdate = new Date(state.user.birthdate.seconds *1000);
+        console.log(state)
+        this.userBirthdate = state.user.birthdate.seconds ? new Date(state.user.birthdate.seconds *1000) : state.user.birthdate;
         this.user = state.user;
         this.fillProfileForm(this.user);
       });

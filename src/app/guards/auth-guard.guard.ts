@@ -38,7 +38,9 @@ export class AuthGuardGuard implements CanLoad, OnDestroy{
       });
        return true;
     }
-    return true;
+    else{
+      return this.router.navigate(['/login']);
+    }
   }
   
 }

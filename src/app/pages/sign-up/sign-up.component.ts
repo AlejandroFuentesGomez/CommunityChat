@@ -23,11 +23,10 @@ export class SignUpComponent implements OnInit, OnDestroy {
     email: new FormControl('', [Validators.required, Validators.email]),
     name: new FormControl('', [
       Validators.required,
-      Validators.pattern('[aA-zZ]{2,50}'),
-    ]),
+      Validators.minLength(3),    ]),
     surname: new FormControl('', [
       Validators.required,
-      Validators.pattern('[aA-zZ]{2,50}'),
+      Validators.minLength(3),
     ]),
     nick: new FormControl('', [Validators.required, Validators.minLength(5)]),
     birthdate: new FormControl('', [Validators.required]),
@@ -60,7 +59,7 @@ export class SignUpComponent implements OnInit, OnDestroy {
       const name = this.signUpForm.controls['name'].value;
       const surname = this.signUpForm.controls['surname'].value;
       const nick = this.signUpForm.controls['nick'].value;
-      const birthdate = this.signUpForm.controls['birthdate'].value;
+      const birthdate = new Date(this.signUpForm.controls['birthdate'].value);
       const password = this.signUpForm.controls['password'].value;
       this.userSubscription = this.userService
         .getUserByNick(nick)

@@ -32,11 +32,9 @@ export class ChatComponent implements OnInit, OnDestroy{
     })   
     this.messagesSubscription = this.messageService.getMessage().subscribe(data=>{
       this.messages = data;
-      console.log(this.messages)
     })
   }
   sendMessage(){
-    console.log('message', this.chatForm.controls['message'].value)
     if(this.chatForm.valid){
       const messageStr = this.chatForm.controls['message'].value;
       const message : Message = new Message(messageStr,this.user.nick,new Date())

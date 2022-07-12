@@ -55,8 +55,7 @@ export class LoginComponent implements OnInit, OnDestroy {
             async (data) => {
               const token = await data!.getIdToken();
               this.storageService.setToken(token);
-              console.log(token)
-              this.userService.updateToken(email, token)
+              this.userService.updateToken(email, token);
               this.loginSubscription = this.userService
                 .getUserByEmail(email)
                 .subscribe((userObj: any) => {

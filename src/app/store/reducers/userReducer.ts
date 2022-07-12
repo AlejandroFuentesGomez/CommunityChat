@@ -3,7 +3,7 @@ import {ACTION_CHANGE_USER} from '../actions/appActions'
 import {UserReducerState} from '../state/userState'
 
 const initialState:UserReducerState = {
-    user: new User('', '', '','',new Date(),'',''),
+    user: new User('', '', '','',{seconds: new Date().getSeconds(), nanoseconds:0},'',''),
 } 
 
 export function userReducer(state = initialState, action:any):UserReducerState{

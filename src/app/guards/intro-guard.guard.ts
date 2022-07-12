@@ -37,7 +37,6 @@ export class IntroGuardGuard implements CanLoad, OnDestroy {
     this.loginSubscription = this.userService
       .getUserByToken(token)
       .subscribe((userObj: any) => {
-        console.log('userObj', userObj);
         if (userObj.length >= 0) {
           const user = jsonToUser(userObj[0]);
           this.storeService.updateUserState(user);

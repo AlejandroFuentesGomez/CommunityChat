@@ -50,7 +50,6 @@ export class HomeComponent implements OnInit, OnDestroy {
       .getState('userState')
       .subscribe((state) => {
         this.user = state.user;
-        console.log(this.user);
       });
   }
   logout() {

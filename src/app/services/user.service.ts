@@ -48,24 +48,27 @@ export class UserService {
     return this.firestore.collection('users').add({ ...userObject });
   }
   public updateDoc(email: string, updateFields: any) {
-    console.log('UPDATE USER');
-    console.log('updateFields', updateFields)
-    return this.firestore
-      .collection('users', (ref) => ref.where('email', '==', email))
-      .snapshotChanges()
-      .subscribe((res: any) => {
+    const subscription = this.firestore
+    .collection('users', (ref) => ref.where('email', '==', email))
+    .snapshotChanges()
+    .subscribe((res: any) => {
         let id = res[0].payload.doc.id;
-        this.firestore.collection('users').doc(id).update(updateFields);
+      this.firestore.collection('users').doc(id).update(updateFields).then(()=>{
+        subscription.unsubscribe()
+
+      })
       });
+  
   }
   public updateToken(email: string, value: string) {
-    console.log('UPDATE TOKEN')
-    return this.firestore
-      .collection('users', (ref) => ref.where('email', '==', email))
-      .snapshotChanges()
-      .subscribe((res: any) => {
+    const subscription = this.firestore
+    .collection('users', (ref) => ref.where('email', '==', email))
+    .snapshotChanges()
+    .subscribe((res: any) => {
         let id = res[0].payload.doc.id;
-        this.firestore.collection('users').doc(id).update({'token': value });
+        this.firestore.collection('users').doc(id).update({'token': value }).then(()=>{
+          subscription.unsubscribe()
+        });
       });
   }
   public logout() {

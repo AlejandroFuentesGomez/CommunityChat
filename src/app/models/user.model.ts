@@ -3,11 +3,11 @@ export class User{
     nick: string;
     name: string;
     surname:string;
-    birthdate: Date;
+    birthdate: Date | any;
     photo: string; 
     token: string;
     
-    constructor(email: string, nick: string, name: string, surname: string, birthdate: Date, photo:string, token:string){
+    constructor(email: string, nick: string, name: string, surname: string, birthdate: Date | any, photo:string, token:string){
         this.email = email;
         this.nick = nick;
         this.name = name;

@@ -20,12 +20,10 @@ export class MessageService {
   }
  
   public createMessage(message:Message){
-    console.log('CREATE MESS')
     const messageObject = objectToJson(message);
     return this.firestore.collection('messages').add({...messageObject})
   }
   public updateDoc(email: string, field: string ,value: string) {
-    console.log('UPDATE MESS');
     
     return this.firestore.collection('messages', ref => ref.where('email', '==', email)).snapshotChanges().subscribe((res:any)=>{
       let id = res[0].payload.doc.id;

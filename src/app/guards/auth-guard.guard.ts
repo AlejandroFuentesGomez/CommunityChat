@@ -32,14 +32,13 @@ export class AuthGuardGuard implements CanLoad, OnDestroy{
         if(userObj.length <=0){
           return this.router.navigate(['/login']);
         }
-        console.log('userObj', userObj)
         const user = jsonToUser(userObj[0]);
         this.storeService.updateUserState(user);
         return true;
       });
        return true;
     }
-    return this.router.navigate(['/login']);
+    return true;
   }
   
 }
